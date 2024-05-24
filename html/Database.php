@@ -142,5 +142,25 @@ class Database {
         }
     }
 
+    // STUDENTS 
+    public function createStudentsTable() {
+        if ($this->connectionStatus === true) {
+            try {
+                $statement = "CREATE TABLE IF NOT EXISTS students( 
+                    studentid int AUTO_INCREMENT,
+                    name varchar(25) NOT NULL,
+                    userid int,
+                    PRIMARY KEY (studentid),
+                    FOREIGN KEY (userid) REFERENCES users(userid)
+                );";
+                $this->connection->query($statement);
+                return true;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
