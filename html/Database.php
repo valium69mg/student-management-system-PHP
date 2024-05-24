@@ -90,7 +90,57 @@ class Database {
             return false;
         }
     }
+    
 
+    public function getUser($id) {
+        if ($this->connectionStatus === true) {
+            try {
+                $stmt = "SELECT * FROM users WHERE userid = ?";
+                $query = $this->connection->prepare($stmt,array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $query->execute(array($id));
+                $data = $query->fetchAll(PDO::FETCH_ASSOC);
+                return $data; // returns user
+                
+            } catch (PDOException $e) {
+                return $e;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function updateUserPassword($username,$password) {
+        if ($this->connectionStatus === true) {
+            try {
+                $stmt = "UPDATE users SET password = ? WHERE username = ?";
+                $query = $this->connection->prepare($stmt,array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $query->execute(array(password_hash($password, PASSWORD_DEFAULT),$username));           
+                return true; // returns user
+                
+            } catch (PDOException $e) {
+                return $e;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteUser($username) {
+        if ($this->connectionStatus === true) {
+            try {
+                $userhash = $this->getUserPassword($username);
+                $stmt = "DELETE FROM users WHERE password = ? AND username = ?";
+                $query = $this->connection->prepare($stmt,array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                $query->execute(array($userhash,$username));           
+                return true; // returns user
+                
+            } catch (PDOException $e) {
+                return $e;
+            }
+        } else {
+            return false;
+        }
+    }
 
 }
 

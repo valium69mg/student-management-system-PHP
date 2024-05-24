@@ -9,4 +9,3 @@ $user       = 'admin';
 $password = 'admin';
 
 $db = new Database($database,$host,$port,$user,$password);
-var_dump($db->getAllUsers());
