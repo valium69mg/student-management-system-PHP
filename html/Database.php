@@ -246,7 +246,7 @@ class Database {
         }
     }
 
-    public function updateStudentGrades($studentid,$p1=0,$p2=0,$p3=0,$cf=0) {
+    public function updateStudentGrades($studentid,$p1,$p2,$p3,$cf) {
         if ($this->connectionStatus === true) {
             try {
                 $stmt = "UPDATE students SET p1 = ?, p2 = ?, p3 = ?, cf = ? WHERE studentid = ?";
