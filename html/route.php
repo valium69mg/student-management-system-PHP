@@ -1,16 +1,17 @@
 <?php
+require_once('./Database.php');
+
+$host       = 'localhost'; 
+$database   = 'studentsdb';
+$port       = 3306;
+$user       = 'admin';
+$password = 'admin';
+
+$db = new Database($database,$host,$port,$user,$password);
 
 $routes = [];
 
-
-route('/', function() {
-    require(__DIR__ . '/students.php');
-});
-
-route('/edit', function() {
-    require(__DIR__ . '/edit-student.php');
-});
-route('/edit/user',function() {
+route('/edit',function() {
     global $db;
     global $routes;
     $studentid = $_POST['studentid'];
@@ -19,13 +20,13 @@ route('/edit/user',function() {
     $p3 = $_POST['p3'];
     $cf = $_POST['cf'];
     $query = $db->updateStudentGrades($studentid,$p1,$p2,$p3,$cf);
-    $callback = $routes['/'];
-    $callback();
+    require(__DIR__ . '/students.php');    
 });
 
-route('/404', function() {
+route('/404',function() {
     echo '404';
 });
+
 
 function route(string $path, callable $callback) {
     global $routes;

@@ -1,14 +1,5 @@
 <?php
-
-require_once('./Database.php');
-
-$host       = 'localhost'; 
-$database   = 'studentsdb';
-$port       = 3306;
-$user       = 'admin';
-$password = 'admin';
-
-$db = new Database($database,$host,$port,$user,$password);
-require(__DIR__ . '/route.php');
-
+require_once('./route.php');
+header("Location: students.php");
+die();
 

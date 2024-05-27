@@ -1,5 +1,17 @@
 <?php
-global $db;
+require_once('./Database.php');
+
+if (isset($_POST["studentid"])) {
+    header("Location edit-student.php");
+} 
+$host       = 'localhost'; 
+$database   = 'studentsdb';
+$port       = 3306;
+$user       = 'admin';
+$password = 'admin';
+
+$db = new Database($database,$host,$port,$user,$password);
+
 $students = $db->getAllStudents('carlostr');
 ?>
 
@@ -22,7 +34,7 @@ $students = $db->getAllStudents('carlostr');
         <th><?= $student["p3"]; ?> </th>
         <th><?= $student["cf"]; ?> </th>
         <th>
-        <form action="/edit" method="post">
+        <form action="/edit-student.php" method="post">
             <input type="hidden" name="studentid" value=<?= $student["studentid"];?> id="studentid"/>
             <button type="submit" > Edit </button>
         </form>

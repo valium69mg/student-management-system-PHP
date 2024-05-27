@@ -1,7 +1,15 @@
 
 <?php
+require_once('./Database.php');
 
-global $db;
+$host       = 'localhost'; 
+$database   = 'studentsdb';
+$port       = 3306;
+$user       = 'admin';
+$password = 'admin';
+
+$db = new Database($database,$host,$port,$user,$password);
+
 
 ?>
 <?php if(isset($_POST['studentid'])) { 
@@ -14,7 +22,7 @@ global $db;
         $cf = $student['cf'];            
 ?>
 <div class="editUserBody">
-<form action="/edit/user" method="post">
+<form action="/edit" method="post">
     <h1> EDIT STUDENT </h1>     
     <input type="hidden" name="studentid" value="<?= $_POST['studentid']; ?>"/>
     <label> Student: </label>
