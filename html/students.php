@@ -13,10 +13,35 @@ $password = 'admin';
 $db = new Database($database,$host,$port,$user,$password);
 
 $students = $db->getAllStudents('carlostr');
+
+$createStudent = false;
 ?>
+<style>
+    body {
+        background-color:#7E8EF1;
+    }
+
+    .studentsTable{
+        position: absolute;
+        left: 50%;
+        top: 5%;
+        transform: translateX(-50%);
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        background-color:#EEEEEE;
+        border-radius: 12px;
+    }
+
+    .studentsTable table {
+        border-spacing: 16px;
+    } 
+</style>
 
 <div class="studentsTable">
-    <table>
+<h1> Students Table </h1>    
+<table>
     <tr>
         <th> ID </th>
         <th> Student </th>
@@ -39,10 +64,20 @@ $students = $db->getAllStudents('carlostr');
             <button type="submit" > Edit </button>
         </form>
         </th>
+        <th>
+        <form action="/delete" method="post">
+            <input type="hidden" name="studentid" value=<?= $student["studentid"];?> id="studentid"/>
+            <button type="submit" > Delete </button>
+        </form>
+        </th>
    
 
     </tr>
     <?php endforeach; ?>
     </table> 
-    
+<form action="/create" method="post">
+    <label> Student: </label>
+    <input type="text" name="name" autocomplete="off" />
+    <button type="submit"> Create Student </button>
+</form>
 </div>

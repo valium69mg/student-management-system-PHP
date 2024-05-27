@@ -23,6 +23,17 @@ route('/edit',function() {
     require(__DIR__ . '/students.php');    
 });
 
+route('/delete',function(){
+    global $db;
+    $db->deleteStudent($_POST["studentid"]);
+    require(__DIR__ . '/students.php');    
+});
+
+route('/create',function(){
+    global $db;
+    $db->createStudent("carlostr",$_POST['name']);
+});
+
 route('/404',function() {
     echo '404';
 });
